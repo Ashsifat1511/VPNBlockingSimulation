@@ -1,0 +1,14 @@
+out/
+.settings/
+
+.cproject
+.oppbuildspec
+.project
+.settings
+bin/
+build/
+*.swp
+*.swo
+*.swp
+*.swo
+omnetpp.ini
