@@ -3,7 +3,7 @@ package vpnblocking;
 import inet.node.inet.StandardHost;
 import inet.node.inet.Router;
 import inet.networklayer.configurator.ipv4.Ipv4NetworkConfigurator;
-import inet.visualizer.integrated.IntegratedCanvasVisualizer;
+// import inet.visualizer.integrated.IntegratedCanvasVisualizer;
 
 network VPNBlockNetwork
 {
@@ -31,9 +31,9 @@ network VPNBlockNetwork
                     + "</config>");
         }
 
-        visualizer: IntegratedCanvasVisualizer {
-            @display("p=50,150");
-        }
+        // visualizer: IntegratedCanvasVisualizer {
+        //     @display("p=50,150");
+        // }
 
         client: StandardHost {
             @display("p=150,200;i=device/laptop");

@@ -1,5 +1,6 @@
 out/
 .settings/
+results/
 
 .cproject
 .oppbuildspec
@@ -10,5 +11,15 @@ build/
 *.swp
 *.swo
 *.swp
-*.swo
+*.swo]
+.qtenvrc
 omnetpp.ini
+
+Makefile.backup
+
+*.dll
+*.csv
+
+*.bat
+
+*.exe

@@ -95,7 +95,7 @@ bool VPNDetector::checkVPNPorts(Packet *packet, const Ptr<const Ipv4Header>& ipH
 
     try {
         // Check if UDP (protocol 17)
-        if (protocol == static_cast<int>(IpProtocolId::IP_PROT_UDP)) {
+        if (protocol == 17) {  // IP_PROT_UDP = 17
             auto udpHeader = packet->peekDataAt<UdpHeader>(ipHeader->getChunkLength());
             int srcPort = udpHeader->getSrcPort();
             int dstPort = udpHeader->getDestPort();
@@ -135,7 +135,7 @@ void VPNDetector::logPacket(Packet *packet, bool blocked)
 
         int srcPort = 0, dstPort = 0;
         try {
-            if (ipHeader->getProtocolId() == static_cast<int>(IpProtocolId::IP_PROT_UDP)) {
+            if (ipHeader->getProtocolId() == 17) {  // IP_PROT_UDP = 17
                 auto udpHeader = packet->peekDataAt<UdpHeader>(ipHeader->getChunkLength());
                 srcPort = udpHeader->getSrcPort();
                 dstPort = udpHeader->getDestPort();

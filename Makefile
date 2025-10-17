@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for VPNBlockingSimulation
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -KINET4_5_PROJ=../inet4.5 -DINET_IMPORT -I$(INET4_5_PROJ)/src -L$(INET4_5_PROJ)/src -lINET$(D)
+#  opp_makemake -f --deep -O out -KINET4_5_PROJ=../inet4.5 -KINET4_5_PROJ=../inet4.5 -DINET_IMPORT -I$$\(INET4_5_PROJ\)/src -L$$\(INET4_5_PROJ\)/src -L$$\(INET4_5_PROJ\)/src -lINET$$\(D\)
 #
 
 # Name of target to be created (-o option)
@@ -18,9 +18,6 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(QTENV_LIBS) $(CMDENV_LIBS)
 #USERIF_LIBS = $(CMDENV_LIBS)
 #USERIF_LIBS = $(QTENV_LIBS)
 
-# INET 4.5 Configuration
-INET4_5_PROJ = ../inet4.5
-
 # C++ include paths (with -I)
 INCLUDE_PATH = -I$(INET4_5_PROJ)/src
 
@@ -28,7 +25,7 @@ INCLUDE_PATH = -I$(INET4_5_PROJ)/src
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L$(INET4_5_PROJ)/src -lINET$(D)
+LIBS = $(LDFLAG_LIBPATH)$(INET4_5_PROJ)/src $(LDFLAG_LIBPATH)$(INET4_5_PROJ)/src  -lINET$(D)
 
 # Output directory
 PROJECT_OUTPUT_DIR = out
@@ -43,6 +40,10 @@ MSGFILES =
 
 # SM files
 SMFILES =
+
+# Other makefile variables (-K)
+INET4_5_PROJ=../inet4.5
+INET4_5_PROJ=../inet4.5
 
 #------------------------------------------------------------------------------
 
@@ -62,8 +63,11 @@ include $(CONFIGFILE)
 
 # Simulation kernel and user interface libraries
 OMNETPP_LIBS = $(OPPMAIN_LIB) $(USERIF_LIBS) $(KERNEL_LIBS) $(SYS_LIBS)
+ifneq ($(PLATFORM),win32)
+LIBS += -Wl,-rpath,$(abspath $(INET4_5_PROJ)/src) -Wl,-rpath,$(abspath $(INET4_5_PROJ)/src)
+endif
 
-COPTS = $(CFLAGS) -DINET_IMPORT $(IMPORT_DEFINES) $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+COPTS = $(CFLAGS) $(IMPORT_DEFINES) -DINET_IMPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
 MSGCOPTS = $(INCLUDE_PATH)
 SMCOPTS =
 
@@ -78,6 +82,8 @@ endif
 
 #------------------------------------------------------------------------------
 # User-supplied makefile fragment(s)
+-include makefrag
+
 #------------------------------------------------------------------------------
 
 # Main target
